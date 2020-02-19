@@ -1,5 +1,6 @@
 ﻿using Microservice.Produtos.Services.Interfaces;
 using Microservice.Produtos.Services.Models;
+using Microservice.Produtos.WebApi.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,10 @@ namespace Microservice.Produtos.WebApi.Controllers.v1
         [HttpGet]
         public ActionResult<IEnumerable<ProdutoModel>> GetAll()
         {
-            var whatevers = _produtoServices.GetAll();
-            if (whatevers is { Count: 0 }) return NoContent();
+            var produtos = _produtoServices.GetAll();
+            if (produtos is { Count: 0 }) return NoContent();
 
-            return Ok(whatevers);
+            return Ok(produtos);
         }
 
         [HttpGet("{id}")]
@@ -36,20 +37,20 @@ namespace Microservice.Produtos.WebApi.Controllers.v1
         {
             if (Guid.Empty == id) return BadRequest("Identificador inválido.");
 
-            var whatever = _produtoServices.GetById(id);
-            if (whatever is null) return NotFound();
+            var produto = _produtoServices.GetById(id);
+            if (produto is null) return NotFound();
 
-            return Ok(whatever);
+            return Ok(produto);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] ProdutoModel model)
         {
-            var whatever = _produtoServices.Save(model);
+            var produto = _produtoServices.Save(model);
 
             return CreatedAtAction(nameof(GetById),
-                new { id = whatever.Id, version = HttpContext.GetRequestedApiVersion().ToString() },
-                whatever);
+                new { id = produto.Id, version = HttpContext.GetRequestedApiVersion().ToString() },
+                produto);
         }
 
         [HttpPut("{id}")]
@@ -58,8 +59,8 @@ namespace Microservice.Produtos.WebApi.Controllers.v1
             if (Guid.Empty == id) return BadRequest("Identificador inválido.");
             if (model?.Id != id) return BadRequest("Identificador diverge do objeto solicitado.");
 
-            var whatever = _produtoServices.Edit(model);
-            return Ok(whatever);
+            var produto = _produtoServices.Edit(model);
+            return Ok(produto);
         }
     }
 }
