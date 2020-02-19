@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using FluentValidation;
 using Microservice.Produtos.Entities.Base;
 using Microservice.Produtos.Repositories.Interfaces;
 using Microservice.Produtos.Services.Interfaces;
@@ -19,7 +18,6 @@ namespace Microservice.Produtos.Services.Base
     {
         private readonly IMapper _mapper;
         private readonly IRepository<TEntity> _repository;
-        private readonly IValidator<TModel> _validator;
 
         protected ServiceBase(IRepository<TEntity> repository, IMapper mapper)
         {
