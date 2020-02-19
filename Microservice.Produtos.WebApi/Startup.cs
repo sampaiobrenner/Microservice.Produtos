@@ -24,6 +24,7 @@ namespace Microservice.Produtos.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApiVersioning();
 
             IocServices.Register(services);
             IocRepositories.Register(services);
