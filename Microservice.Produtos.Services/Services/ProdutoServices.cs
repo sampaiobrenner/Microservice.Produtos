@@ -9,7 +9,8 @@ namespace Microservice.Produtos.Services.Services
 {
     public class ProdutoServices : ServiceBase<Produto, ProdutoModel>, IProdutoServices
     {
-        public ProdutoServices(IProdutoRepository produtoRepository, IMapper mapper) : base(produtoRepository, mapper)
+        public ProdutoServices(IProdutoRepository produtoRepository, IMapper mapper)
+            : base(produtoRepository, mapper)
         {
         }
     }

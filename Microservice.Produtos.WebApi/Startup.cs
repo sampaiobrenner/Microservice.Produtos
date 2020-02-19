@@ -1,5 +1,7 @@
+using FluentValidation.AspNetCore;
 using Microservice.Produtos.Repositories;
 using Microservice.Produtos.Services;
+using Microservice.Produtos.Services.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,9 @@ namespace Microservice.Produtos.WebApi
         {
             services.AddControllers();
             services.AddApiVersioning();
+
+            services.AddMvcCore(options => options.SuppressAsyncSuffixInActionNames = false)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProdutoModelValidator>());
 
             IocServices.Register(services);
             IocRepositories.Register(services);
