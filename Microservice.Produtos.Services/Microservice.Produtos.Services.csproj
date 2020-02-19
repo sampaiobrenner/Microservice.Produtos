@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Microservice.Produtos.Services.Abstractions\Microservice.Produtos.Services.Abstractions.csproj" />
     <ProjectReference Include="..\Microservices.Produtos.Abstractions\Microservice.Produtos.Services.Abstractions.csproj" />
   </ItemGroup>
 
