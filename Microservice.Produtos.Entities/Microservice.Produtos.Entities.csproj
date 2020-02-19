@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Microservice.Produtos.Entities.Abstractions\Microservice.Produtos.Entities.Abstractions.csproj" />
-  </ItemGroup>
-
 </Project>

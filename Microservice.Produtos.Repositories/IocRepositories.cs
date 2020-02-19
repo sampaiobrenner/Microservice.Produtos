@@ -1,5 +1,5 @@
-﻿using Microservice.Produtos.Repositories.Abstractions.Interfaces;
-using Microservice.Produtos.Repositories.Contexts;
+﻿using Microservice.Produtos.Repositories.Contexts;
+using Microservice.Produtos.Repositories.Interfaces;
 using Microservice.Produtos.Repositories.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

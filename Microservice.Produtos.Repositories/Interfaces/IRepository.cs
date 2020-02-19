@@ -1,13 +1,13 @@
-﻿using Microservice.Produtos.Entities.Abstractions.Base;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microservice.Produtos.Entities.Base;
 
-namespace Microservice.Produtos.Repositories.Abstractions.Interfaces
+namespace Microservice.Produtos.Repositories.Interfaces
 {
     public interface IRepository<TEntity>
-        where TEntity : BaseEntity
+        where TEntity : EntityBase
     {
         void Delete(Guid id);
 

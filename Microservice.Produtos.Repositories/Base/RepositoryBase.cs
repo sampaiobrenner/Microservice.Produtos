@@ -1,20 +1,20 @@
-﻿using Microservice.Produtos.Entities.Abstractions.Base;
-using Microservice.Produtos.Repositories.Abstractions.Interfaces;
+﻿using Microservice.Produtos.Entities.Base;
+using Microservice.Produtos.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microservice.Produtos.Repositories.Abstractions.Base
+namespace Microservice.Produtos.Repositories.Base
 {
-    public abstract class BaseRepository<TEntity> : IRepository<TEntity>
-          where TEntity : BaseEntity
+    public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
+          where TEntity : EntityBase
     {
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        protected BaseRepository(DbContext context)
+        protected RepositoryBase(DbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

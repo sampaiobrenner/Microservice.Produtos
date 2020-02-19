@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microservice.Produtos.Entities.Abstractions.Base;
-using Microservice.Produtos.Repositories.Abstractions.Interfaces;
-using Microservice.Produtos.Services.Abstractions.Interfaces;
+using Microservice.Produtos.Entities.Base;
+using Microservice.Produtos.Repositories.Interfaces;
+using Microservice.Produtos.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,16 +10,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microservice.Produtos.Services.Abstractions.Base
+namespace Microservice.Produtos.Services.Base
 {
-    public abstract class BaseServices<TEntity, TModel> : IService<TEntity, TModel>
-        where TEntity : BaseEntity
-        where TModel : BaseModel
+    public abstract class ServiceBase<TEntity, TModel> : IService<TEntity, TModel>
+        where TEntity : EntityBase
+        where TModel : ModelBase
     {
         private readonly IMapper _mapper;
         private readonly IRepository<TEntity> _repository;
 
-        protected BaseServices(IRepository<TEntity> repository, IMapper mapper)
+        protected ServiceBase(IRepository<TEntity> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,8 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microservice.Produtos.Services.Abstractions\Microservice.Produtos.Services.Abstractions.csproj" />
-    <ProjectReference Include="..\Microservices.Produtos.Abstractions\Microservice.Produtos.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\Microservice.Produtos.Repositories\Microservice.Produtos.Repositories.csproj" />
   </ItemGroup>
 
   <ItemGroup>

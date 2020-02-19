@@ -1,15 +1,15 @@
-﻿using Microservice.Produtos.Entities.Abstractions.Base;
-using Microservice.Produtos.Services.Abstractions.Base;
+﻿using Microservice.Produtos.Entities.Base;
+using Microservice.Produtos.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microservice.Produtos.Services.Abstractions.Interfaces
+namespace Microservice.Produtos.Services.Interfaces
 {
     public interface IService<TEntity, TModel>
-        where TEntity : BaseEntity
-        where TModel : BaseModel
+        where TEntity : EntityBase
+        where TModel : ModelBase
     {
         void Delete(Guid id);
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Microservice.Produtos.Services.Abstractions.Base
+namespace Microservice.Produtos.Services.Base
 {
-    public abstract class BaseError
+    public abstract class ErrorBase
     {
         private List<string> _errors;
 
-        protected BaseError() => _errors = new List<string>();
+        protected ErrorBase() => _errors = new List<string>();
 
         public void AddError(string erro)
         {
@@ -15,9 +15,9 @@ namespace Microservice.Produtos.Services.Abstractions.Base
             _errors.Add(erro);
         }
 
-        public void AddError(BaseError baseError) => AddErrors(baseError?.GetErrors());
+        public void AddError(ErrorBase baseError) => AddErrors(baseError?.GetErrors());
 
-        public void AddErrors(IEnumerable<BaseError> baseErrors) =>
+        public void AddErrors(IEnumerable<ErrorBase> baseErrors) =>
             AddErrors(baseErrors?.SelectMany(x => x.GetErrors()));
 
         public void AddErrors(IEnumerable<string> errors)
