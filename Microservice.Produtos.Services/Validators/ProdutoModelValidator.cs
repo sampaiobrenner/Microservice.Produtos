@@ -10,9 +10,6 @@ namespace Microservice.Produtos.Services.Validators
             RuleFor(x => x)
                 .NotNull().WithMessage("Objeto produto não foi informado.");
 
-            RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("Identificador inválido");
-
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O nome do produto deve ser informado");
 
@@ -21,9 +18,6 @@ namespace Microservice.Produtos.Services.Validators
 
             RuleFor(x => x.PrecoDeVenda)
                 .GreaterThan(0).WithMessage("O preço de venda deve ser maior que zero.");
-
-            RuleFor(x => x.CategoriaDoProduto)
-                .InjectValidator();
         }
     }
 }

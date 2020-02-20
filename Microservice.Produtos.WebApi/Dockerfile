@@ -11,8 +11,6 @@ COPY ["Microservice.Produtos.WebApi/Microservice.Produtos.WebApi.csproj", "Micro
 COPY ["Microservice.Produtos.Services/Microservice.Produtos.Services.csproj", "Microservice.Produtos.Services/"]
 COPY ["Microservice.Produtos.Repositories/Microservice.Produtos.Repositories.csproj", "Microservice.Produtos.Repositories/"]
 COPY ["Microservice.Produtos.Entities/Microservice.Produtos.Entities.csproj", "Microservice.Produtos.Entities/"]
-COPY ["Microservice.Produtos.Entities.Abstractions/Microservice.Produtos.Entities.Abstractions.csproj", "Microservice.Produtos.Entities.Abstractions/"]
-COPY ["Microservice.Produtos.Repositories.Abstractions/Microservice.Produtos.Repositories.Abstractions.csproj", "Microservice.Produtos.Repositories.Abstractions/"]
 RUN dotnet restore "Microservice.Produtos.WebApi/Microservice.Produtos.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Microservice.Produtos.WebApi"
