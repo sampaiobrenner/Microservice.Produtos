@@ -11,7 +11,7 @@ namespace Microservice.Produtos.Repositories
         public static void Register(IServiceCollection services)
         {
             services
-                .AddDbContext<ProdutoContext>(options =>
+                .AddDbContext<Context>(options =>
                     options.UseInMemoryDatabase("ProdutoDb")
                         .UseLazyLoadingProxies());
 
