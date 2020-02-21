@@ -34,6 +34,8 @@ namespace Microservice.Produtos.WebApi
 
             IocServices.Register(services);
             IocRepositories.Register(services);
+
+            MigrateDatabase(services);
         }
 
         private void MigrateDatabase(IServiceCollection services)

@@ -12,7 +12,7 @@ namespace Microservice.Produtos.Repositories
         public static void Register(IServiceCollection services)
         {
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer("Server=localhost;Database=microservice-produtos;User Id=sa;Password=Hiper@987!@!@!@;"));
+                options.UseSqlServer("Server=mssql;Database=microservice-produtos;User Id=sa;Password=Hiper@987!@!@!@;"));
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
         }
