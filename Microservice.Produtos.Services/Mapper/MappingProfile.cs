@@ -9,6 +9,7 @@ namespace Microservice.Produtos.Services.Mapper
         public MappingProfile()
         {
             CreateMap<Produto, ProdutoModel>().ReverseMap();
+            CreateMap<CategoriaDoProduto, CategoriaDoProdutoModel>().ReverseMap();
         }
     }
 }

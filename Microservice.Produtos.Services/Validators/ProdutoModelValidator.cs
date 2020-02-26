@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microservice.Produtos.Services.Models;
-using System;
 
 namespace Microservice.Produtos.Services.Validators
 {
@@ -11,11 +10,14 @@ namespace Microservice.Produtos.Services.Validators
             RuleFor(x => x)
                 .NotNull().WithMessage("Objeto produto não foi informado.");
 
-            RuleFor(x => x.Id)
-                .NotEqual(Guid.Empty).WithMessage("Identificador inválido");
-
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O nome do produto deve ser informado");
+
+            RuleFor(x => x.PrecoDeCusto)
+                .GreaterThan(0).WithMessage("O preço de custo deve ser maior que zero."); ;
+
+            RuleFor(x => x.PrecoDeVenda)
+                .GreaterThan(0).WithMessage("O preço de venda deve ser maior que zero.");
         }
     }
 }

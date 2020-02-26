@@ -7,13 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Microservice.Produtos.Repositories
 {
     public class IocRepositories
+
     {
         public static void Register(IServiceCollection services)
         {
-            services
-                .AddDbContext<ProdutoContext>(options =>
-                    options.UseInMemoryDatabase("ProdutoDb")
-                        .UseLazyLoadingProxies());
+            services.AddDbContext<Context>(options =>
+                options.UseSqlServer("Server=mssql;Database=microservice-produtos;User Id=sa;Password=Hiper@987!@!@!@;"));
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
         }

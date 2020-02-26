@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microservice.Produtos.Repositories;
+using Microservice.Produtos.Repositories.Contexts;
 using Microservice.Produtos.Services;
 using Microservice.Produtos.Services.Validators;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,16 @@ namespace Microservice.Produtos.WebApi
 
             IocServices.Register(services);
             IocRepositories.Register(services);
+
+            MigrateDatabase(services);
+        }
+
+        private void MigrateDatabase(IServiceCollection services)
+        {
+            using var serviceScope = services.BuildServiceProvider().CreateScope();
+            using var context = serviceScope.ServiceProvider.GetService<Context>();
+
+            context.Database.EnsureCreated();
         }
     }
 }
