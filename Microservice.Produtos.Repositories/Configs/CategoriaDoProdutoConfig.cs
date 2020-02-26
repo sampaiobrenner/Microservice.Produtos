@@ -1,4 +1,5 @@
 ﻿using Microservice.Produtos.Entities.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
