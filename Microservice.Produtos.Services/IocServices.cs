@@ -12,6 +12,7 @@ namespace Microservice.Produtos.Services
         {
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IProdutoServices, ProdutoServices>();
+            services.AddScoped<ICategoriaDoProdutoServices, CategoriaDoProdutoServices>();
         }
     }
 }
