@@ -5,20 +5,27 @@ namespace Microservice.Produtos.Entities.Entities
 {
     public class Produto : EntityBase
     {
-        internal Produto(Guid id, string nome, decimal precoDeCusto, decimal precoDeVenda) : base(id)
+        private Produto(Guid id, string nome, decimal precoDeCusto, decimal precoDeVenda) : base(id)
         {
             SetNome(nome);
             SetPrecoDeCusto(precoDeCusto);
             SetPrecoDeVenda(precoDeVenda);
         }
 
-        public virtual CategoriaDoProduto CategoriaDoProduto { get; set; }
-        public int? CategoriaDoProdutoId { get; set; }
+        public CategoriaDoProduto CategoriaDoProduto { get; private set; }
+
         public string Nome { get; private set; }
+
         public decimal PrecoDeCusto { get; private set; }
+
         public decimal PrecoDeVenda { get; private set; }
 
-        private void SetNome(string nome)
+        public void SetCategoriaDoProduto(CategoriaDoProduto categoriaDoProduto)
+        {
+            CategoriaDoProduto = categoriaDoProduto;
+        }
+
+        public void SetNome(string nome)
         {
             if (string.IsNullOrEmpty(nome))
             {
@@ -29,7 +36,7 @@ namespace Microservice.Produtos.Entities.Entities
             Nome = nome;
         }
 
-        private void SetPrecoDeCusto(decimal precoDeCusto)
+        public void SetPrecoDeCusto(decimal precoDeCusto)
         {
             if (default == precoDeCusto)
             {
@@ -40,7 +47,7 @@ namespace Microservice.Produtos.Entities.Entities
             PrecoDeCusto = precoDeCusto;
         }
 
-        private void SetPrecoDeVenda(decimal precoDeVenda)
+        public void SetPrecoDeVenda(decimal precoDeVenda)
         {
             if (default == precoDeVenda)
             {
@@ -49,5 +56,8 @@ namespace Microservice.Produtos.Entities.Entities
             }
             PrecoDeVenda = precoDeVenda;
         }
+
+        internal static Produto CreateInstance(Guid id, string nome, decimal precoDeCusto, decimal precoDeVenda) =>
+            new Produto(id, nome, precoDeCusto, precoDeVenda);
     }
 }

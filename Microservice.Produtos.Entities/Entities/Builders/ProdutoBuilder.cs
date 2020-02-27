@@ -8,7 +8,7 @@ namespace Microservice.Produtos.Entities.Entities.Builders
         private decimal PrecoDeCusto { get; set; }
         private decimal PrecoDeVenda { get; set; }
 
-        public override Produto Build() => new Produto(Id, Nome, PrecoDeCusto, PrecoDeVenda);
+        public override Produto Build() => Produto.CreateInstance(Id, Nome, PrecoDeCusto, PrecoDeVenda);
 
         public ProdutoBuilder WithNome(string nome)
         {
