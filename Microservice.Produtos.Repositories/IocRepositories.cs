@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Microservice.Produtos.Repositories
 {
     public class IocRepositories
-
     {
         public static void Register(IServiceCollection services)
         {

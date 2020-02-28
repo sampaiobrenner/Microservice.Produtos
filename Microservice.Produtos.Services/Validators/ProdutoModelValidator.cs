@@ -14,7 +14,7 @@ namespace Microservice.Produtos.Services.Validators
                 .NotEmpty().WithMessage("O nome do produto deve ser informado");
 
             RuleFor(x => x.PrecoDeCusto)
-                .GreaterThan(0).WithMessage("O preço de custo deve ser maior que zero."); ;
+                .GreaterThan(0).WithMessage("O preço de custo deve ser maior que zero.");
 
             RuleFor(x => x.PrecoDeVenda)
                 .GreaterThan(0).WithMessage("O preço de venda deve ser maior que zero.");
