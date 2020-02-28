@@ -19,14 +19,7 @@ Projeto de estudos em .NET Core
 - Resiliência com Polly e Refresh token with Polly-retry;
 - Conhecendo conceitos e implementação de Autenticação e Autorização com JWT e .NET Core 3;
 
-## Getting Started
-
-After clone the project 
-
-```
-dotnet run
-```
-### Prerequisites
+### Pré requisitos
 
 Microsoft .NET Core 3.1
 
@@ -38,13 +31,28 @@ For more details
 ```
 dotnet --info
 ```
-## Running the tests
 
-To run the tests use dotnet CLI
+
+### Para executar o container e efetuar o build do projeto basta executar o comando abaixo na raiz do projeto:
+```
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build -d
+```
+
+###Para somente executar o container basta executar o comando abaixo na raiz do projeto:
+```
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+```
+
+## Executando o sonar
 
 ```
-dotnet test
+SonarScanner.MSBuild.exe begin /k:"microservice-produtos" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="3cf8ccd2c00a498bc6b0f7a7ff69ad3661b403e7"
+
+"D:\Arquivo de Programas\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MsBuild.exe" Microservice.Produtos.sln /t:Rebuild
+
+SonarScanner.MSBuild.exe end /d:sonar.login="3cf8ccd2c00a498bc6b0f7a7ff69ad3661b403e7"
 ```
+
 ## Built With
 
 * [Microsoft .NET Core](https://dotnet.microsoft.com/)
