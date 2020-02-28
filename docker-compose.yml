@@ -18,7 +18,7 @@ services:
     ports:
         - "1433:1433"
     volumes:
-        - .mssql\data:/var/opt/mssql/data
+        - C:\DockerData\SqlServer\data:/var/opt/mssql/data
 
     environment:
         SA_PASSWORD: "Hiper@987!@!@!@"
