@@ -41,7 +41,7 @@ namespace Microservice.Produtos.WebApi
         private void MigrateDatabase(IServiceCollection services)
         {
             using var serviceScope = services.BuildServiceProvider().CreateScope();
-            using var context = serviceScope.ServiceProvider.GetService<Context>();
+            using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
             context.Database.EnsureCreated();
         }

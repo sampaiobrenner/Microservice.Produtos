@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Microservice.Produtos.WebApi.Controllers.v1
 {
     [ApiVersion("1")]
-    public class ProdutoController : ProdutoControllerBase
+    public class ProdutoController : BaseController
     {
         private readonly IProdutoServices _produtoServices;
 
