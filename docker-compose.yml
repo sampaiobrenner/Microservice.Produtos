@@ -3,6 +3,7 @@ version: '3.4'
 services:
   microservice.produtos.webapi:
     image: ${DOCKER_REGISTRY-}microserviceprodutoswebapi
+    container_name: microservice-produtos-webapi
     build:
       context: .
       dockerfile: Microservice.Produtos.WebApi/Dockerfile
@@ -12,9 +13,15 @@ services:
         - mssql
 
   mssql:
-    image: mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sql-server
     ports:
         - "1433:1433"
+    volumes:
+        - .mssql\data:/var/opt/mssql/data
+        - .mssql\log:/var/opts/mssql/log
+        - .mssql\secrects:/var/opt/mssql/secrects
+
     environment:
         SA_PASSWORD: "Hiper@987!@!@!@"
         ACCEPT_EULA: "Y"

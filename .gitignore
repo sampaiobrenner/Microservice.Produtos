@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /.sonarqube
 /Microservice.Produtos.WebApi/.sonarqube
+/.mssql

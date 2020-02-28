@@ -92,6 +92,8 @@ namespace Microservice.Produtos.Services.Services
                 .WithPrecoDeVenda(model.PrecoDeVenda)
                 .Build();
 
+            if (!produto.IsValid) return _mapper.Map<ProdutoModel>(produto);
+
             _produtoRepository.Insert(produto);
 
             return _mapper.Map<ProdutoModel>(produto);
@@ -105,6 +107,8 @@ namespace Microservice.Produtos.Services.Services
                          .WithPrecoDeCusto(model.PrecoDeCusto)
                          .WithPrecoDeVenda(model.PrecoDeVenda)
                          .Build();
+
+            if (!produto.IsValid) return _mapper.Map<ProdutoModel>(produto);
 
             await _produtoRepository.InsertAsync(produto, cancellationToken);
             return _mapper.Map<ProdutoModel>(produto);
