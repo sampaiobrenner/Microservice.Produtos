@@ -19,8 +19,6 @@ services:
         - "1433:1433"
     volumes:
         - .mssql\data:/var/opt/mssql/data
-        - .mssql\log:/var/opts/mssql/log
-        - .mssql\secrects:/var/opt/mssql/secrects
 
     environment:
         SA_PASSWORD: "Hiper@987!@!@!@"
