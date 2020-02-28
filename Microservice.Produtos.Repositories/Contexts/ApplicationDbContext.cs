@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Microservice.Produtos.Repositories.Contexts
 {
-    public class Context : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public Context(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -14,7 +14,7 @@ namespace Microservice.Produtos.Repositories.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }

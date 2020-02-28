@@ -38,6 +38,9 @@ namespace Microservice.Produtos.Entities.Tests
                 .Build();
 
             Assert.True(produto.IsValid);
+            Assert.Equal(nome, produto.Nome);
+            Assert.Equal(precoDeCusto, produto.PrecoDeCusto);
+            Assert.Equal(precoDeVenda, produto.PrecoDeVenda);
         }
     }
 }

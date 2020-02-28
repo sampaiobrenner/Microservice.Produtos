@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Microservice.Produtos.WebApi.Controllers.v2
 {
     [ApiVersion("2")]
-    public class ProdutoController : ProdutoControllerBase
+    public class ProdutoController : BaseController
     {
         private readonly IProdutoServices _produtoServices;
 
