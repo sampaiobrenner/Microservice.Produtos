@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Microservice.Produtos.WebApi.Queries
+namespace Microservice.Produtos.WebApi.GraphQL.GraphQLQueries
 {
     public class GraphQLQuery
     {

@@ -1,9 +1,9 @@
 ﻿using GraphQL.Types;
-using Microservice.Produtos.Entities.Entities;
+using Microservice.Produtos.Services.Models;
 
-namespace Microservice.Produtos.WebApi.Types
+namespace Microservice.Produtos.WebApi.GraphQL.GraphQLTypes
 {
-    public class ProdutoType : ObjectGraphType<Produto>
+    public class ProdutoType : ObjectGraphType<ProdutoModel>
     {
         public ProdutoType()
         {

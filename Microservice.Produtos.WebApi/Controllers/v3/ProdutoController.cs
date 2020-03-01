@@ -1,8 +1,7 @@
 ﻿using GraphQL;
-using GraphQL.Types;
-using Microservice.Produtos.Repositories.Contexts;
 using Microservice.Produtos.WebApi.Controllers.Base;
-using Microservice.Produtos.WebApi.Queries;
+using Microservice.Produtos.WebApi.GraphQL.GraphQLQueries;
+using Microservice.Produtos.WebApi.GraphQL.GraphQLSchema;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -11,32 +10,24 @@ namespace Microservice.Produtos.WebApi.Controllers.v3
     [ApiVersion("3")]
     public class ProdutoController : BaseController
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ProdutoSchema _produtoSchema;
 
-        public ProdutoController(ApplicationDbContext db) => _db = db;
+        public ProdutoController(ProdutoSchema produtoSchema) => _produtoSchema = produtoSchema;
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]GraphQLQuery query)
         {
             var inputs = query.Variables.ToInputs();
 
-            var schema = new Schema()
-            {
-                Query = new ProdutoQuery(_db)
-            };
-
             var result = await new DocumentExecuter().ExecuteAsync(options =>
             {
-                options.Schema = schema;
+                options.Schema = _produtoSchema;
                 options.Query = query.Query;
                 options.OperationName = query.OperationName;
                 options.Inputs = inputs;
             }).ConfigureAwait(false);
 
-            if (result.Errors?.Count > 0)
-                return BadRequest(result);
-
-            return Ok(result);
+            return TratarRetorno(result);
         }
     }
 }

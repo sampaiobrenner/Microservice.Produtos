@@ -1,8 +1,12 @@
 using FluentValidation.AspNetCore;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
 using Microservice.Produtos.Repositories;
 using Microservice.Produtos.Repositories.Contexts;
 using Microservice.Produtos.Services;
 using Microservice.Produtos.Services.Validators;
+using Microservice.Produtos.WebApi.GraphQL.GraphQLSchema;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +26,9 @@ namespace Microservice.Produtos.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseGraphQL<ProdutoSchema>();
+            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +41,12 @@ namespace Microservice.Produtos.WebApi
 
             IocServices.Register(services);
             IocRepositories.Register(services);
+
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<ProdutoSchema>();
+
+            services.AddGraphQL(o => { o.ExposeExceptions = false; })
+                .AddGraphTypes(ServiceLifetime.Scoped);
 
             MigrateDatabase(services);
         }
