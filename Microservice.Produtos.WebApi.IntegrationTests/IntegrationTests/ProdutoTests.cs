@@ -1,8 +1,8 @@
-﻿using Microservice.Produtos.Services.Models;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using RazorPagesProject.Tests;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WideWorldImporters.API.IntegrationTests;
 using Xunit;
 
 namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
@@ -43,27 +43,43 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
         [Fact]
         public async Task Post_Save()
         {
-            var produto = new ProdutoModel();
-            produto.Nome = "Produto teste";
+            // Arrange
+            var request = new
+            {
+                Url = "/api/v1/produto",
+                Body = new
+                {
+                    Nome = "Produto teste"
+                }
+            };
 
-            //Act
-            var response = await _client.PostAsync("/api/v1/produto", null);
+            // Act
+            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var value = await response.Content.ReadAsStringAsync();
 
             // Assert
-            Assert.True(response.IsSuccessStatusCode);
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
         public async Task Post_SaveAsync()
         {
-            var produto = new ProdutoModel();
-            produto.Nome = "Produto teste";
+            // Arrange
+            var request = new
+            {
+                Url = "/api/v2/produto",
+                Body = new
+                {
+                    Nome = "Produto teste"
+                }
+            };
 
-            //Act
-            var response = await _client.PostAsync("/api/v2/produto", null);
+            // Act
+            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var value = await response.Content.ReadAsStringAsync();
 
             // Assert
-            Assert.True(response.IsSuccessStatusCode);
+            response.EnsureSuccessStatusCode();
         }
     }
 }
