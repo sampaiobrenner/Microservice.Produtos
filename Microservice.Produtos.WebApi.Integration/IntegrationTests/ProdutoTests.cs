@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using RazorPagesProject.Tests;
-using System.Net.Http;
+﻿using RazorPagesProject.Tests;
+using System.Net;
 using System.Threading.Tasks;
 using WideWorldImporters.API.IntegrationTests;
 using Xunit;
@@ -9,18 +8,9 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
 {
     public class ProdutoTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        private readonly HttpClient _client;
-
         private readonly CustomWebApplicationFactory<Startup> _factory;
 
-        public ProdutoTests(CustomWebApplicationFactory<Startup> factory)
-        {
-            _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
-        }
+        public ProdutoTests(CustomWebApplicationFactory<Startup> factory) => _factory = factory;
 
         [Theory]
         [InlineData("/api/v1/produto")]
@@ -44,6 +34,8 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
         public async Task Post_Save()
         {
             // Arrange
+            var client = _factory.CreateClient();
+
             var request = new
             {
                 Url = "/api/v1/produto",
@@ -54,7 +46,7 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
             };
 
             // Act
-            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var response = await client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
             var value = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -65,6 +57,7 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
         public async Task Post_SaveAsync()
         {
             // Arrange
+            var client = _factory.CreateClient();
             var request = new
             {
                 Url = "/api/v2/produto",
@@ -75,11 +68,34 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
             };
 
             // Act
-            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var response = await client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
             var value = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task Post_SaveComErro()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            var request = new
+            {
+                Url = "/api/v1/produto",
+                Body = new
+                {
+                    Nome = ""
+                }
+            };
+
+            // Act
+            var response = await client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var value = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
     }
 }
