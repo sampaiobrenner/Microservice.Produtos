@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microservice.Produtos.Repositories\Microservice.Produtos.Repositories.csproj" />
+    <ProjectReference Include="..\Microservice.Produtos.WebApi\Microservice.Produtos.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>
