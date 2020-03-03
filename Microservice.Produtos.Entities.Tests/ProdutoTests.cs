@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace Microservice.Produtos.Entities.Tests
+namespace Microservice.Produtos.Entities.UnitTests
 {
     public class ProdutoTests
     {

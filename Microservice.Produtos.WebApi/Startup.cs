@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly;
+using Polly.Retry;
+using System;
 
 namespace Microservice.Produtos.WebApi
 {
@@ -48,8 +51,13 @@ namespace Microservice.Produtos.WebApi
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
 
-            MigrateDatabase(services);
+            GetRetryPolicy().Execute(() => MigrateDatabase(services));
         }
+
+        private static RetryPolicy GetRetryPolicy() =>
+            Policy
+                .Handle<Exception>()
+                .WaitAndRetry(3, i => TimeSpan.FromSeconds(30));
 
         private void MigrateDatabase(IServiceCollection services)
         {
