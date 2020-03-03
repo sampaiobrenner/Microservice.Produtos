@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Polly;
 using Polly.Retry;
 using System;
+using System.Threading.Tasks;
 
 namespace Microservice.Produtos.WebApi
 {
@@ -51,20 +52,20 @@ namespace Microservice.Produtos.WebApi
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
 
-            GetRetryPolicy().Execute(() => MigrateDatabase(services));
+            GetRetryPolicy().ExecuteAsync(() => MigrateDatabaseAsync(services));
         }
 
-        private static RetryPolicy GetRetryPolicy() =>
+        private static AsyncRetryPolicy GetRetryPolicy() =>
             Policy
                 .Handle<Exception>()
-                .WaitAndRetry(3, i => TimeSpan.FromSeconds(30));
+                .WaitAndRetryAsync(10, i => TimeSpan.FromSeconds(5));
 
-        private void MigrateDatabase(IServiceCollection services)
+        private Task MigrateDatabaseAsync(IServiceCollection services)
         {
             using var serviceScope = services.BuildServiceProvider().CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            context.Database.EnsureCreated();
+            return context.Database.EnsureCreatedAsync();
         }
     }
 }
