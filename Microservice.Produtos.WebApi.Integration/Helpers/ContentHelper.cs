@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
 
-namespace WideWorldImporters.API.IntegrationTests
+namespace Microservice.Produtos.WebApi.IntegrationTests.Helpers
 {
     public static class ContentHelper
     {

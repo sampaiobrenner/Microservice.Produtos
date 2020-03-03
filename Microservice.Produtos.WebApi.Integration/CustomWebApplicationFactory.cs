@@ -1,4 +1,5 @@
 ﻿using Microservice.Produtos.Repositories.Contexts;
+using Microservice.Produtos.WebApi.IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace RazorPagesProject.Tests
+namespace Microservice.Produtos.WebApi.IntegrationTests
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {

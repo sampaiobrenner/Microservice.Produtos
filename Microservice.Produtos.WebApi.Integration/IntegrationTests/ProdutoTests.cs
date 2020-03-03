@@ -1,7 +1,6 @@
-﻿using RazorPagesProject.Tests;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
-using WideWorldImporters.API.IntegrationTests;
+using Microservice.Produtos.WebApi.IntegrationTests.Helpers;
 using Xunit;
 
 namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests

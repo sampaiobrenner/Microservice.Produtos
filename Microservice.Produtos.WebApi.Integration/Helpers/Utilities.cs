@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using Microservice.Produtos.Entities.Entities;
 using Microservice.Produtos.Entities.Entities.Builders;
 using Microservice.Produtos.Repositories.Contexts;
-using System.Collections.Generic;
 
-namespace RazorPagesProject.Tests
+namespace Microservice.Produtos.WebApi.IntegrationTests.Helpers
 {
     public static class Utilities
     {
