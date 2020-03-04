@@ -15,7 +15,7 @@ namespace Microservice.Produtos.Repositories.Configs
             builder.Property(c => c.PrecoDeCusto).IsRequired().HasColumnType("decimal(5,3)").HasColumnName("PrecoDeCusto");
             builder.Property(c => c.PrecoDeVenda).IsRequired().HasColumnType("decimal(5,3)").HasColumnName("PrecoDeVenda");
 
-            builder.HasOne(c => c.CategoriaDoProduto);
+            builder.HasOne(c => c.CategoriaDoProduto).WithMany(c => c.Produtos);
         }
     }
 }

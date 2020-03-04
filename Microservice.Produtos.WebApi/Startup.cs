@@ -9,6 +9,7 @@ using Microservice.Produtos.Services.Validators;
 using Microservice.Produtos.WebApi.GraphQL.GraphQLSchema;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
@@ -32,6 +33,8 @@ namespace Microservice.Produtos.WebApi
 
             app.UseGraphQL<ProdutoSchema>();
             app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
+
+            GetRetryPolicy().Execute(() => MigrateDatabase(app));
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -50,21 +53,21 @@ namespace Microservice.Produtos.WebApi
 
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
+        }
 
-            GetRetryPolicy().Execute(() => MigrateDatabase(services));
+        public void MigrateDatabase(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            if (context.AllMigrationsApplied()) return;
+
+            context.Database.Migrate();
         }
 
         private static RetryPolicy GetRetryPolicy() =>
             Policy
                 .Handle<Exception>()
-                .WaitAndRetry(3, i => TimeSpan.FromSeconds(30));
-
-        private void MigrateDatabase(IServiceCollection services)
-        {
-            using var serviceScope = services.BuildServiceProvider().CreateScope();
-            using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-
-            context.Database.EnsureCreated();
-        }
+                .WaitAndRetry(10, i => TimeSpan.FromSeconds(5));
     }
 }

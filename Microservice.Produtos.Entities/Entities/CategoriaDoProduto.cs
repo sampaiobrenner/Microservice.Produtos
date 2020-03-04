@@ -1,5 +1,6 @@
 ﻿using Microservice.Produtos.Entities.Base;
 using System;
+using System.Collections.Generic;
 
 namespace Microservice.Produtos.Entities.Entities
 {
@@ -11,6 +12,8 @@ namespace Microservice.Produtos.Entities.Entities
         }
 
         public string Nome { get; private set; }
+
+        public virtual ICollection<Produto> Produtos { get; set; }
 
         public void SetNome(string nome)
         {
