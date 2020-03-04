@@ -9,12 +9,12 @@ using Microservice.Produtos.Services.Validators;
 using Microservice.Produtos.WebApi.GraphQL.GraphQLSchema;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
 using Polly.Retry;
 using System;
-using System.Threading.Tasks;
 
 namespace Microservice.Produtos.WebApi
 {
@@ -33,6 +33,8 @@ namespace Microservice.Produtos.WebApi
 
             app.UseGraphQL<ProdutoSchema>();
             app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
+
+            GetRetryPolicy().Execute(() => MigrateDatabase(app));
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -51,21 +53,21 @@ namespace Microservice.Produtos.WebApi
 
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
-
-            GetRetryPolicy().ExecuteAsync(() => MigrateDatabaseAsync(services));
         }
 
-        private static AsyncRetryPolicy GetRetryPolicy() =>
-            Policy
-                .Handle<Exception>()
-                .WaitAndRetryAsync(10, i => TimeSpan.FromSeconds(5));
-
-        private Task MigrateDatabaseAsync(IServiceCollection services)
+        public void MigrateDatabase(IApplicationBuilder app)
         {
-            using var serviceScope = services.BuildServiceProvider().CreateScope();
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return context.Database.EnsureCreatedAsync();
+            if (context.AllMigrationsApplied()) return;
+
+            context.Database.Migrate();
         }
+
+        private static RetryPolicy GetRetryPolicy() =>
+            Policy
+                .Handle<Exception>()
+                .WaitAndRetry(10, i => TimeSpan.FromSeconds(5));
     }
 }
