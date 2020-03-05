@@ -53,6 +53,16 @@ SonarScanner.MSBuild.exe begin /k:"microservice-produtos" /d:sonar.host.url="htt
 SonarScanner.MSBuild.exe end /d:sonar.login="3cf8ccd2c00a498bc6b0f7a7ff69ad3661b403e7"
 ```
 
+
+## Criar nova migration
+
+```
+Executar no Package manager console o comando: dotnet tool install --global dotnet-ef --version 3.0.0
+Eecutar o "create migrations.bat" e digitar o nome da migration desejado.
+
+```
+
+
 ## Built With
 
 * [Microsoft .NET Core](https://dotnet.microsoft.com/)
