@@ -33,8 +33,6 @@ namespace Microservice.Produtos.WebApi
 
             app.UseGraphQL<ProdutoSchema>();
             app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
-
-            GetRetryPolicy().Execute(() => MigrateDatabase(app));
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -53,11 +51,13 @@ namespace Microservice.Produtos.WebApi
 
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
+
+            // GetRetryPolicy().Execute(() => MigrateDatabase(services));
         }
 
-        public void MigrateDatabase(IApplicationBuilder app)
+        public void MigrateDatabase(IServiceCollection services)
         {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            using var serviceScope = services.BuildServiceProvider().CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
             if (context.AllMigrationsApplied()) return;

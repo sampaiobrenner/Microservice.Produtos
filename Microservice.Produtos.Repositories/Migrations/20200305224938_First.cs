@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Microservice.Produtos.WebApi.Migrations
+namespace Microservice.Produtos.Repositories.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

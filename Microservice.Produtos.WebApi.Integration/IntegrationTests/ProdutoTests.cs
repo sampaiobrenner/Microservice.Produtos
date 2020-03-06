@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using Microservice.Produtos.WebApi.IntegrationTests.Helpers;
+using System.Net;
 using System.Threading.Tasks;
-using Microservice.Produtos.WebApi.IntegrationTests.Helpers;
 using Xunit;
 
 namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
@@ -14,8 +14,7 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
         [Theory]
         [InlineData("/api/v1/produto")]
         [InlineData("/api/v2/produto")]
-        [InlineData("/api/v3/produto")]
-        public async Task Get_EndPointsRetornamSucessoEContentTypeCorreto(string url)
+        public async Task Get_EndPointsRetornamSucesso(string url)
         {
             // Arrange
             var client = _factory.CreateClient();
@@ -24,9 +23,7 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
             var response = await client.GetAsync(url);
 
             // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]
@@ -40,7 +37,9 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
                 Url = "/api/v1/produto",
                 Body = new
                 {
-                    Nome = "Produto teste"
+                    Nome = "Teste 2",
+                    PrecoDeCusto = 12,
+                    PrecoDeVenda = 15
                 }
             };
 
@@ -62,7 +61,9 @@ namespace Microservice.Produtos.WebApi.IntegrationTests.IntegrationTests
                 Url = "/api/v2/produto",
                 Body = new
                 {
-                    Nome = "Produto teste"
+                    Nome = "Teste 1",
+                    PrecoDeCusto = 12,
+                    PrecoDeVenda = 15
                 }
             };
 

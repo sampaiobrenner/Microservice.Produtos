@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace Microservice.Produtos.WebApi.IntegrationTests
 {
@@ -15,17 +16,20 @@ namespace Microservice.Produtos.WebApi.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                // Create a new service provider.
-                var serviceProvider = new ServiceCollection()
-                    .AddEntityFrameworkInMemoryDatabase()
-                    .BuildServiceProvider();
+                // Remove the app's ApplicationDbContext registration.
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType ==
+                        typeof(DbContextOptions<ApplicationDbContext>));
 
-                // Add a database context (ApplicationDbContext) using an in-memory
-                // database for testing.
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
+
+                // Add ApplicationDbContext using an in-memory database for testing.
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    options.UseInternalServiceProvider(serviceProvider);
                 });
 
                 // Build the service provider.
@@ -50,7 +54,8 @@ namespace Microservice.Produtos.WebApi.IntegrationTests
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, "An error occurred seeding the database. Error: {Message}", ex.Message);
+                        logger.LogError(ex, "An error occurred seeding the " +
+                            "database with test messages. Error: {Message}", ex.Message);
                     }
                 }
             });
